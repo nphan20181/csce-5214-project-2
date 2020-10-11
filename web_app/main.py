@@ -48,13 +48,12 @@ def predict():
     # fill missing values with 0
     inputs.fillna(0, inplace=True)
 
-    # build outputs table and save to csv file
+    # build outputs table
     outputs = pd.DataFrame(columns=['State', 'City', 'CityAvgYearlyTemp', 'PredictedPrice'])
     outputs['State'] = temp['State']
     outputs['City'] = temp['City']
     outputs['CityAvgYearlyTemp'] = inputs['CityAvgYearlyTemp']
     outputs['PredictedPrice'] = np.round(rf_model.model.predict(inputs), 2)
-    outputs
 
     # get a list of states that have the specified price
     outputs = outputs[(outputs['PredictedPrice'] >= user_inputs[0]) & (outputs['PredictedPrice'] <= user_inputs[1])]
